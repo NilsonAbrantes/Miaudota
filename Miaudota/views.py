@@ -48,16 +48,16 @@ def login_view(request):
       if user.is_superuser:
         return redirect('/admin/')
       elif user.groups.filter(name='ong').exists():
-        return redirect('/dashboard_ong')
+        return redirect('dashboard/ong/')
       elif user.groups.filter(name='adotante').exists():
-        return redirect('/home')
+        return redirect('dashboard/adotante')
       else:
-        return redirect('/home')
+        return redirect('')
       
     else:
       messages.error(request, 'Usuário ou senha Inválidos.')
   
-  return render(request, 'html/login.html')
+  return render(request, '')
 
 def logout_view(request):
   auth_logout(request)
@@ -70,3 +70,7 @@ def dashboard_ong(request):
 @login_required
 def home(request):
     return render(request, 'html/home.html')
+
+@login_required
+def dashboard_adotante(request):
+    return render(request, 'html/dashboard_adotante.html')
