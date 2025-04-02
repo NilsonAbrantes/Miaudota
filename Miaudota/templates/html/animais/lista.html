@@ -1,0 +1,13 @@
+<h2>Meus Animais</h2>
+<ul>
+  {% for animal in animais %}
+  <li>
+    <strong>{{ animal.nome }}</strong> <br>{{ animal.especie }}<br> {{ animal.raca }}<br> {{ animal.descricao }}<br>
+    <img src="{{ animal.foto.url }}" width="100"><br>
+    <a href="{% url 'editar_animal' animal.id %}">Editar</a> |
+    <a href="{% url 'excluir_animal' animal.id %}">Excluir</a>
+  </li>
+  {% empty %}
+  <li>Nenhum animal cadastrado.</li>
+  {% endfor %}
+</ul>

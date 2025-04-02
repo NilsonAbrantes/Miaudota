@@ -1,0 +1,15 @@
+<h2>Editar Animal</h2>
+<form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  <input type="text" name="nome" value="{{ animal.nome }}" required><br>
+  <input type="text" name="especie" value="{{ animal.especie }}" required><br>
+  <input type="text" name="raca" value="{{ animal.raca }}" required><br>
+  <input type="number" name="idade" value="{{ animal.idade }}" required><br>
+  <select name="sexo" required>
+    <option value="M">Macho</option>
+    <option value="F">Fêmea</option>
+  </select><br>
+  <textarea name="descricao">{{ animal.descricao }}</textarea><br>
+  <input type="file" name="foto" accept="image/*"><br>
+  <button type="submit">Atualizar</button>
+</form>
