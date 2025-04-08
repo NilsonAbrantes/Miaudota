@@ -1,16 +1,24 @@
 <h2>Animais para Adoção</h2>
 
+{% if messages %}
+<ul>
+  {% for message in messages %}
+  <li class="{{ message.tags }}">{{ message }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+
 {% if animais %}
-  <ul>
-    {% for animal in animais %}
-      <li>
-        <strong>{{ animal.nome }}</strong> ({{ animal.especie }})<br>
-        <img src="{{ animal.foto.url }}" width="100"><br>
-        <p>{{ animal.descricao }}</p>
-        <a href="#">Entre em contato com a ONG para adoção</a>
-      </li>
-    {% endfor %}
-  </ul>
+<ul>
+  {% for animal in animais %}
+  <li>
+    <strong>{{ animal.nome }}</strong> ({{ animal.especie }})<br>
+    <img src="{{ animal.foto.url }}" width="100"><br>
+    <p>{{ animal.descricao }}</p>
+    <a href="{% url 'contato_ong' animal.id %}">Entre em contato com a ONG para adoção</a>
+  </li>
+  {% endfor %}
+</ul>
 {% else %}
-  <p>Não há animais disponíveis para adoção no momento.</p>
+<p>Não há animais disponíveis para adoção no momento.</p>
 {% endif %}

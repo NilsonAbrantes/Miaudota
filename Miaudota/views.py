@@ -6,6 +6,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as auth_login, logout as auth_logout
 from .models import Animal, Ong
 from django.core.exceptions import PermissionDenied
+from django.core.mail import send_mail
+from .forms import ContatoForm
 
 def registro_ong(request):
     if request.method == 'POST':
@@ -152,3 +154,53 @@ def excluir_animal(request, animal_id):
 def listar_animais_publicos(request):
     animais = Animal.objects.filter(disponivel=True)
     return render(request, 'html/animais/publicos.html', {'animais':animais})
+
+def contato_ong(request, animal_id):
+    try:
+        # Obtendo o animal pelo ID
+        animal = Animal.objects.get(id=animal_id)
+
+        # Diagnóstico: Verifique o que está sendo retornado pela associação da ONG
+        print(f"Animal: {animal.nome}, ONG associada: {animal.ong}")
+
+        # Verifique se o animal tem uma ONG associada
+        if not animal.ong:
+            raise PermissionDenied("Este animal não está associado a uma ONG válida.")
+        
+        # Se a ONG estiver corretamente associada, você pode acessar seu e-mail
+        ong_email = animal.ong.user.email  # Acessando o e-mail da ONG
+
+        # Se o método for POST, o formulário foi enviado
+        if request.method == 'POST':
+            form = ContatoForm(request.POST)
+            if form.is_valid():
+                nome = form.cleaned_data['nome']
+                email = form.cleaned_data['email']
+                mensagem = form.cleaned_data['mensagem']
+
+                # Envia o e-mail para a ONG
+                send_mail(
+                    f'Contato sobre o animal: {animal.nome}',
+                    f'Nome: {nome}\nEmail: {email}\n\nMensagem:\n{mensagem}',
+                    email,  # E-mail do remetente
+                    [ong_email],  # E-mail da ONG
+                    fail_silently=False,
+                )
+
+                messages.success(request, 'Sua mensagem foi enviada com sucesso! A ONG entrará em contato em breve.')
+
+                # Redireciona para a página de visualização pública após envio
+                return redirect('animais_publicos')
+
+        else:
+            # Se o método for GET, o formulário é renderizado vazio
+            form = ContatoForm()
+
+        # Renderiza a página do formulário de contato
+        return render(request, 'html/animais/contato.html', {'form': form, 'animal': animal})
+
+    except Animal.DoesNotExist:
+        raise PermissionDenied("Animal não encontrado.")
+    except Exception as e:
+        print(f"Erro inesperado: {e}")
+        raise PermissionDenied("Ocorreu um erro durante o envio da mensagem.")
