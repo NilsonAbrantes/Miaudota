@@ -111,7 +111,8 @@ def adicionar_animais(request):
             sexo=sexo,
             descricao=descricao,
             foto=foto,
-            ong=ong
+            ong=ong,
+            disponivel=True
         )
         return redirect('lista_animais')
     
@@ -131,6 +132,7 @@ def editar_animal(request, animal_id):
         animal.idade = request.POST['idade']
         animal.sexo = request.POST['sexo']
         animal.descricao = request.POST['descricao']
+        animal.disponivel = request.POST('disponivel','off') == 'on'
         if 'foto' in request.FILES:
             animal.foto = request.FILES['foto']
         animal.save()
@@ -146,3 +148,7 @@ def excluir_animal(request, animal_id):
     animal = Animal.objects.get(id=animal_id)
     animal.delete()
     return redirect('lista_animais')
+
+def listar_animais_publicos(request):
+    animais = Animal.objects.filter(disponivel=True)
+    return render(request, 'html/animais/publicos.html', {'animais':animais})

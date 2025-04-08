@@ -11,5 +11,7 @@
   </select><br>
   <textarea name="descricao">{{ animal.descricao }}</textarea><br>
   <input type="file" name="foto" accept="image/*"><br>
+  <label for="disponivel">Disponível para Adoção</label>
+  <input type="checkbox" name="disponivel" {% if animal.disponivel %}checked{% endif %}><br>
   <button type="submit">Atualizar</button>
 </form>

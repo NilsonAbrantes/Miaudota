@@ -13,6 +13,7 @@ urlpatterns = [
     path('animais/adicionar/', views.adicionar_animais, name='adicionar_animais'),
     path('animais/<int:animal_id>/editar/', views.editar_animal, name='editar_animal'),
     path('animais/<int:animal_id>/excluir/',views.excluir_animal, name='excluir_animal'),
+    path('animais/publicos', views.listar_animais_publicos, name='animais_publicos'),
 
 ]
 
