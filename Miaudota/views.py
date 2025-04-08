@@ -7,7 +7,7 @@ from django.contrib.auth import login as auth_login, logout as auth_logout
 from .models import Animal, Ong
 from django.core.exceptions import PermissionDenied
 from django.core.mail import send_mail
-from .forms import ContatoForm
+from .forms import ContatoForm, OngValida
 
 def registro_ong(request):
     if request.method == 'POST':
@@ -160,9 +160,6 @@ def contato_ong(request, animal_id):
         # Obtendo o animal pelo ID
         animal = Animal.objects.get(id=animal_id)
 
-        # Diagnóstico: Verifique o que está sendo retornado pela associação da ONG
-        print(f"Animal: {animal.nome}, ONG associada: {animal.ong}")
-
         # Verifique se o animal tem uma ONG associada
         if not animal.ong:
             raise PermissionDenied("Este animal não está associado a uma ONG válida.")
@@ -201,6 +198,36 @@ def contato_ong(request, animal_id):
 
     except Animal.DoesNotExist:
         raise PermissionDenied("Animal não encontrado.")
+    except Exception as e:
+        print(f"Erro inesperado: {e}")
+        raise PermissionDenied("Ocorreu um erro durante o envio da mensagem.")
+    
+def PermitirOng(request, ong_id):
+    try:
+        ong = Ong.objects.get(id=ong_id)
+        adm_email = 'lucasnilson624@gmail.com'
+
+        if request.method == 'POST':
+            form = OngValida(request.POST)
+            if form.is_valid():
+                nome = form.cleaned_data['nome']
+                email = form.cleaned_data['email']
+                cnpj = form.cleaned_data['cnpj']
+                telefone = form.cleaned_data['telefone']
+                endereco = form.cleaned_data['endereco']
+                
+
+                send_mail(
+                    f'Inscrição da Ong: {ong.nome}'
+                    f'Nome: {nome}\n Email: {email} Cnpj: {cnpj}\n Telefone: {telefone}\n Endereço: {endereco}',
+                    email,
+                    [adm_email],
+                    fail_silently=False,
+                )
+                return redirect('home')
+
+    except Ong.DoesNotExist:
+        raise PermissionDenied("Ong não encontrado.")
     except Exception as e:
         print(f"Erro inesperado: {e}")
         raise PermissionDenied("Ocorreu um erro durante o envio da mensagem.")
