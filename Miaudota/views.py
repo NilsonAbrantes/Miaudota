@@ -7,20 +7,64 @@ from django.contrib.auth import login as auth_login, logout as auth_logout
 from .models import Animal, Ong
 from django.core.exceptions import PermissionDenied
 from django.core.mail import send_mail
-from .forms import ContatoForm, OngValida
+from .forms import ContatoForm
 
 def registro_ong(request):
     if request.method == 'POST':
+        # Obtendo os dados do formulário
+        print(request.POST)
         username = request.POST['username']
         senha = request.POST['senha']
         email = request.POST['email']
+        cnpj = request.POST['cnpj']
+        endereco = request.POST['endereco']
+        telefone = request.POST['telefone']
 
-        user = User.objects.create_user(username=username, email=email, password=senha)
-        grupo_ong = Group.objects.get(name='ong')
-        user.groups.add(grupo_ong)
 
-        auth_login(request, user)
-        return redirect('dashboard_ong')
+        try:
+            # Enviar e-mail ao administrador para notificar sobre o novo cadastro
+            adm_email = 'lucasnilson624@gmail.com'  # E-mail do admin
+
+            # Corpo do e-mail
+            message = f'''
+            Uma nova ONG está tentando se registrar no sistema. Confira os dados abaixo para validação:
+
+            Nome de usuário: {username}
+            E-mail: {email}
+            Cnpj: {cnpj}
+            Endereço: {endereco}
+            Telefone: {telefone}
+            '''
+
+            # Enviar e-mail ao admin
+            send_mail(
+                'Cadastro de Nova ONG: Validação Necessária',  # Assunto
+                message,  # Corpo do e-mail
+                'noreply@seusite.com',  # E-mail de origem (use um e-mail válido configurado no Django)
+                [adm_email],  # E-mail do admin
+                fail_silently=False,
+            )
+
+            # Criar o usuário para a ONG, mas **não a salva ainda**
+            user = User.objects.create_user(username=username, email=email, password=senha)
+            user.is_active = False  # Define o usuário como inativo até a aprovação
+            user.save()
+
+            # Adiciona o usuário ao grupo "ong" após a criação
+            grupo_ong = Group.objects.get(name='ong')
+            user.groups.add(grupo_ong)
+
+            # Criar a instância da ONG associada ao usuário
+            ong = Ong.objects.create(user=user)
+            ong.save()
+
+            # Redirecionar o usuário para uma página informando que a ONG está aguardando aprovação
+            messages.success(request, 'Sua ONG foi registrada com sucesso. Aguardando aprovação do administrador.')
+            return redirect('/')
+
+        except Exception as e:
+            print(f"Erro ao registrar ONG: {e}")
+            raise PermissionDenied("Ocorreu um erro ao tentar registrar a ONG.")
 
     return render(request, 'html/login/registro_ong.html')
 
@@ -51,9 +95,9 @@ def login_view(request):
             if user.is_superuser:
                 return redirect('/admin/')
             elif user.groups.filter(name='ong').exists():
-                return redirect('dashboard_ong')
+                return redirect('/dashboard/ong/')
             elif user.groups.filter(name='adotante').exists():
-                return redirect('dashboard_adotante')
+                return redirect('/dashboard/adotante/')
             else:
                 return redirect('login')
         else:
@@ -73,7 +117,6 @@ def dashboard_ong(request):
 def dashboard_adotante(request):
     return render(request, 'html/dashboard/dashboard_adotante.html')
 
-@login_required
 def home(request):
     return render(request, 'html/dashboard/home.html')
 
@@ -198,36 +241,6 @@ def contato_ong(request, animal_id):
 
     except Animal.DoesNotExist:
         raise PermissionDenied("Animal não encontrado.")
-    except Exception as e:
-        print(f"Erro inesperado: {e}")
-        raise PermissionDenied("Ocorreu um erro durante o envio da mensagem.")
-    
-def PermitirOng(request, ong_id):
-    try:
-        ong = Ong.objects.get(id=ong_id)
-        adm_email = 'lucasnilson624@gmail.com'
-
-        if request.method == 'POST':
-            form = OngValida(request.POST)
-            if form.is_valid():
-                nome = form.cleaned_data['nome']
-                email = form.cleaned_data['email']
-                cnpj = form.cleaned_data['cnpj']
-                telefone = form.cleaned_data['telefone']
-                endereco = form.cleaned_data['endereco']
-                
-
-                send_mail(
-                    f'Inscrição da Ong: {ong.nome}'
-                    f'Nome: {nome}\n Email: {email} Cnpj: {cnpj}\n Telefone: {telefone}\n Endereço: {endereco}',
-                    email,
-                    [adm_email],
-                    fail_silently=False,
-                )
-                return redirect('home')
-
-    except Ong.DoesNotExist:
-        raise PermissionDenied("Ong não encontrado.")
     except Exception as e:
         print(f"Erro inesperado: {e}")
         raise PermissionDenied("Ocorreu um erro durante o envio da mensagem.")
