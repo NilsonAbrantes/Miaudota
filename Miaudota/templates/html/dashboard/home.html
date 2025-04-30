@@ -1,2 +1,40 @@
-<h2>Bem-vindo ao site de adoção!</h2>
-<a href="{% url 'logout' %}">Sair</a>
+<!DOCTYPE html>
+<html lang="pt-br">
+{% load static %}
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home</title>
+  <link rel="stylesheet" href="{% static 'admin/css/home.css' %}">
+</head>
+
+<body>
+  <div id="menu-container">
+    <!-- Ícone de hambúrguer -->
+    <button class="hamburger" onclick="toggleMenu()">&#9776;</button>
+
+    <!-- Menu de opções -->
+    <div class="menu" id="menu">
+      <a href="/login/">Fazer Login</a>
+      <a href="/registrar/ong/">Cadastrar ONG</a>
+      <a href="/registrar/adotante/">Cadastrar Adotante</a>
+    </div>
+  </div>
+
+  <div>
+    <!-- Conteúdo da página (Home) -->
+    <h1>Bem-vindo ao Sistema MiauDota!</h1>
+    <p>Conteúdo da página inicial...</p>
+  </div>
+
+  <script>
+    // Função para alternar o menu
+    function toggleMenu() {
+      var menu = document.getElementById('menu');
+      menu.classList.toggle('show');
+    }
+  </script>
+</body>
+
+</html>

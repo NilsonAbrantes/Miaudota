@@ -1,0 +1,53 @@
+/* Estilos para o menu */
+body {
+  font-family: Arial, sans-serif;
+}
+
+/* Container do menu */
+#menu-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+/* Ícone do menu */
+.hamburger {
+  cursor: pointer;
+  font-size: 30px;
+  background-color: transparent;
+  border: none;
+  color: #333;
+}
+
+/* Menu escondido */
+.menu {
+  display: none;
+  flex-direction: column;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  position: absolute;
+  top: 40px;
+  right: 0;
+  width: 200px;
+}
+
+/* Itens do menu */
+.menu a {
+  text-decoration: none;
+  padding: 10px;
+  color: #333;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.menu a:hover {
+  background-color: #f0f0f0;
+}
+
+/* Mostrar o menu quando ativo */
+.menu.show {
+  display: flex;
+}
