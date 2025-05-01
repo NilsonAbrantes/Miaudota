@@ -115,7 +115,8 @@ def dashboard_adotante(request):
     return render(request, 'html/dashboard/dashboard_adotante.html')
 
 def home(request):
-    return render(request, 'html/dashboard/home.html')
+    animais = Animal.objects.filter(disponivel=True)
+    return render(request, 'html/dashboard/home.html', {'animais':animais})
 
 #somente ongs podem realizar algumas operações
 def checar_ong(user):

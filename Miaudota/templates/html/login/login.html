@@ -2,11 +2,13 @@
 
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="{% static 'admin/css/login.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
 </head>
+
 <body class="login">
 
     <div id="container">
@@ -35,14 +37,15 @@
             {% if messages %}
             <ul>
                 {% for message in messages %}
-                    <li style="color: red;">{{ message }}</li>
+                <li style="color: red;">{{ message }}</li>
                 {% endfor %}
             </ul>
             {% endif %}
 
-            
+
         </div>
     </div>
 
 </body>
+
 </html>
