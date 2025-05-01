@@ -75,13 +75,13 @@ WSGI_APPLICATION = "core.wsgi.application"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'Miaudota',  # Substitua pelo nome do seu banco de dados
-        'USER': 'lucas',  # Substitua pelo seu nome de usuário MySQL
-        'PASSWORD': '12345678',  # Substitua pela sua senha MySQL
-        'HOST': 'localhost',  # Ou o IP do seu servidor MySQL
-        'PORT': '3306',  # O padrão do MySQL é 3306
+        'NAME': 'Miaudota', 
+        'USER': 'lucas',  
+        'PASSWORD': '12345678', 
+        'HOST': 'localhost',  
+        'PORT': '3306', 
     }
 }
 
@@ -122,6 +122,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = "static/"
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

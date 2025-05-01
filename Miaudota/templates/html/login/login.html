@@ -1,14 +1,51 @@
-<h2>Login</h2>
-<form method="POST">
-  {% csrf_token %}
-  <input type="text" name="username" placeholder="Usuário" required><br>
-  <input type="password" name="senha" placeholder="Senha" required><br>
-  <button type="submit">Entrar</button>
-</form>
-{% if messages %}
-<ul>
-  {% for message in messages %}
-  <li style="color: red;">{{ message }}</li>
-  {% endfor %}
-</ul>
-{% endif %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+
+<body class="login">
+
+    <div id="container">
+        <div id="header">
+            <h1><a href="/">Entrar no Sistema MiauDota</a></h1>
+        </div>
+
+        <div id="content">
+            <form method="POST">
+                {% csrf_token %}
+                <div class="form-row">
+                    <label for="id_username">Usuário</label>
+                    <input type="text" name="username" id="id_username" placeholder="Usuário" required>
+                </div>
+
+                <div class="form-row">
+                    <label for="id_password">Senha</label>
+                    <input type="password" name="password" id="id_password" placeholder="Senha" required>
+                </div>
+
+                <div class="submit-row">
+                    <input type="submit" value="Entrar">
+                </div>
+            </form>
+
+            {% if messages %}
+            <ul>
+                {% for message in messages %}
+                <li style="color: red;">{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+
+
+        </div>
+    </div>
+
+</body>
+
+</html>

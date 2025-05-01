@@ -2,7 +2,7 @@
 
 
 .login {
-    background: linear-gradient(to right, #1e3c72, #2a5298);
+    background: linear-gradient(to right, #1a2231, #224177);
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -24,7 +24,7 @@
 }
 
 .login #header h1 a {
-    color: #fff;
+    color: #ffffff;
     text-decoration: none;
 }
 
@@ -34,7 +34,7 @@
 }
 
 .login #container {
-    background: #fff;
+    background: #010825;
     border-radius: 12px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
     width: 100%;
@@ -89,7 +89,7 @@
 }
 
 .login .submit-row input[type="submit"]:hover {
-    background-color: #1e3c72;
+    background-color: blue;
 }
 
 

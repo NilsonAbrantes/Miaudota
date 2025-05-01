@@ -86,9 +86,9 @@ def registro_adotante(request):
 def login_view(request):
     if request.method == 'POST':
         username = request.POST['username']
-        senha = request.POST['senha']
+        password = request.POST['password']
 
-        user = authenticate(request, username=username, password=senha)
+        user = authenticate(request, username=username, password=password)
         if user is not None:
             auth_login(request, user)
 
@@ -118,7 +118,8 @@ def dashboard_adotante(request):
     return render(request, 'html/dashboard/dashboard_adotante.html')
 
 def home(request):
-    return render(request, 'html/dashboard/home.html')
+    animais = Animal.objects.filter(disponivel=True)
+    return render(request, 'html/dashboard/home.html', {'animais':animais})
 
 #somente ongs podem realizar algumas operações
 def checar_ong(user):
@@ -243,4 +244,4 @@ def contato_ong(request, animal_id):
         raise PermissionDenied("Animal não encontrado.")
     except Exception as e:
         print(f"Erro inesperado: {e}")
-        raise PermissionDenied("Ocorreu um erro durante o envio da mensagem.")
+
