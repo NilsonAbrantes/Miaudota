@@ -7,10 +7,12 @@ from django.contrib.auth import login as auth_login, logout as auth_logout
 from .models import Animal, Ong
 from django.core.exceptions import PermissionDenied
 from django.core.mail import send_mail
-from .forms import ContatoForm, OngValida
+from .forms import ContatoForm
 
 def registro_ong(request):
     if request.method == 'POST':
+        # Obtendo os dados do formulário
+        print(request.POST)
         username = request.POST['username']
         senha = request.POST['senha']
         email = request.POST['email']
@@ -26,6 +28,7 @@ def registro_ong(request):
             # Corpo do e-mail
             message = f'''
             Uma nova ONG está tentando se registrar no sistema. Confira os dados abaixo para validação:
+
             Nome de usuário: {username}
             E-mail: {email}
             Cnpj: {cnpj}
@@ -92,9 +95,9 @@ def login_view(request):
             if user.is_superuser:
                 return redirect('/admin/')
             elif user.groups.filter(name='ong').exists():
-                return redirect('dashboard_ong')
+                return redirect('/dashboard/ong/')
             elif user.groups.filter(name='adotante').exists():
-                return redirect('dashboard_adotante')
+                return redirect('/dashboard/adotante/')
             else:
                 return redirect('login')
         else:
@@ -241,5 +244,4 @@ def contato_ong(request, animal_id):
         raise PermissionDenied("Animal não encontrado.")
     except Exception as e:
         print(f"Erro inesperado: {e}")
-        raise PermissionDenied("Ocorreu um erro durante o envio da mensagem.")
-    
+
