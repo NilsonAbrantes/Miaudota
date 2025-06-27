@@ -1,3 +1,65 @@
-<h2>Dashboard do Adotante</h2>
-<p>Bem-vindo, Adotante!</p>
-<a href="{% url 'logout' %}">Sair</a>
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Adotante</title>
+  <link rel="stylesheet" href="{% static 'css/adotante.css' %}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css">
+</head>
+
+{% if messages %}
+<div id="alert-box" class="alert-box">
+  {% for message in messages %}
+  <p class="alert-message alert-{{ message.tags }}">{{ message }}</p>
+  {% endfor %}
+</div>
+{% endif %}
+
+<body class="corFundo">
+  <div id="menu-container">
+    <!-- Ícone de hambúrguer -->
+    <button class="hamburger" onclick="toggleMenu()">&#9776;</button>
+
+    <!-- Menu de opções -->
+    <div class="menu" id="menu">
+      <a href="/login/">Dados</a>
+      <a href="{% url 'logout' %}">Sair</a>
+    </div>
+  </div>
+
+    <!-- Exibir os animais em formato de álbum -->
+    <div class="album-container">
+      {% for animal in animais %}
+      <div class="animal-card">
+        <img src="{{ animal.foto.url }}" alt="Foto do animal">
+        <h3>{{ animal.nome }}</h3>
+        <p>Espécie: {{ animal.especie }}</p>
+        <p>Raça: {{ animal.raca }}</p>
+        <p>Descrição: {{ animal.descricao}}</p>
+        <a href="{% url 'contato_ong' animal.id %}" class="btn btn-primary">Contato com a ONG</a>
+
+
+      </div>
+      {% empty %}
+      <p>Não há animais disponíveis no momento.</p>
+      {% endfor %}
+    </div>
+
+
+  </div>
+
+  <script>
+    // Função para alternar o menu
+    function toggleMenu() {
+      var menu = document.getElementById('menu');
+      menu.classList.toggle('show');
+    }
+
+  </script>
+</body>
+
+</html>

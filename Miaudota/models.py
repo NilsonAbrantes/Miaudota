@@ -32,3 +32,15 @@ class Animal(models.Model):
 
     def __str__(self):
         return self.nome
+    
+class Adotante(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)  # Relacionamento com o usuário
+    nome = models.CharField(max_length=100)
+    cpf = models.CharField(max_length=11, unique=True)  
+    telefone = models.CharField(max_length=15)
+    endereco = models.TextField()
+    data_nascimento = models.DateField()
+    consentimento = models.BooleanField()
+
+    def __str__(self):
+        return self.nome

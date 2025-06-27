@@ -4,7 +4,7 @@ from django.contrib.auth.models import User, Group
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login as auth_login, logout as auth_logout
-from .models import Animal, Ong
+from .models import Animal, Ong, Adotante
 from django.core.exceptions import PermissionDenied
 from django.core.mail import send_mail
 from .forms import ContatoForm
@@ -116,7 +116,8 @@ def dashboard_ong(request):
 
 @login_required
 def dashboard_adotante(request):
-    return render(request, 'html/dashboard/dashboard_adotante.html')
+    animais = Animal.objects.filter(disponivel=True)
+    return render(request, 'html/dashboard/dashboard_adotante.html', {'animais':animais})
 
 def home(request):
     animais = Animal.objects.filter(disponivel=True)
@@ -200,11 +201,12 @@ def listar_animais_publicos(request):
     animais = Animal.objects.filter(disponivel=True)
     return render(request, 'html/animais/publicos.html', {'animais':animais})
 
-def contato_ong(request, animal_id):
+@login_required
+def contato_ong(request, animal_id, adotante_id):
     try:
         # Obtendo o animal pelo ID
         animal = Animal.objects.get(id=animal_id)
-
+        adotante = Adotante.objects.get(id=adotante_id)
         # Verifique se o animal tem uma ONG associada
         if not animal.ong:
             raise PermissionDenied("Este animal não está associado a uma ONG válida.")
@@ -216,7 +218,7 @@ def contato_ong(request, animal_id):
         if request.method == 'POST':
             form = ContatoForm(request.POST)
             if form.is_valid():
-                nome = form.cleaned_data['nome']
+                nome = ...
                 email = form.cleaned_data['email']
                 mensagem = form.cleaned_data['mensagem']
 

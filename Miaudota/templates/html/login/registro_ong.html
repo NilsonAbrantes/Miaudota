@@ -1,12 +1,4 @@
 <h2>Cadastro de ONG</h2>
-<!-- Exibir mensagens de sucesso ou erro -->
-{% if messages %}
-<ul>
-  {% for message in messages %}
-  <li class="{{ message.tags }}">{{ message }}</li>
-  {% endfor %}
-</ul>
-{% endif %}
 
 <form method="POST">
   {% csrf_token %}
