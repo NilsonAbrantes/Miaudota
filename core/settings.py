@@ -76,12 +76,8 @@ WSGI_APPLICATION = "core.wsgi.application"
 
 DATABASES = {
      'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'Miaudota', 
-        'USER': 'lucas',  
-        'PASSWORD': '12345678', 
-        'HOST': 'localhost',  
-        'PORT': '3306', 
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3', 
     }
 }
 
@@ -135,6 +131,6 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'lucasnilson6244@gmail.com' 
-EMAIL_HOST_PASSWORD = 'zwrg mbcx hplz vhnb'  
+EMAIL_HOST_PASSWORD = 'urkp nkni zmzw mqav'  
 
 

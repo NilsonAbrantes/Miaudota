@@ -7,11 +7,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home</title>
-  <link rel="stylesheet" href="{% static 'css/home.css' %}"> <!-- Verifique o caminho correto do arquivo CSS -->
+  <link rel="stylesheet" href="{% static 'css/home.css' %}"> 
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css">
 </head>
 
-<body>
+<body class="corFundo">
   <div id="menu-container">
     <!-- Ícone de hambúrguer -->
     <button class="hamburger" onclick="toggleMenu()">&#9776;</button>
@@ -38,7 +38,7 @@
         <p>Espécie: {{ animal.especie }}</p>
         <p>Raça: {{ animal.raca }}</p>
         <p>Descrição: {{ animal.descricao}}</p>
-        <a href="{% url 'editar_animal' animal.id %}" class="details-button"></a> <!-- Botão de detalhes -->
+
       </div>
       {% empty %}
       <p>Não há animais disponíveis no momento.</p>
