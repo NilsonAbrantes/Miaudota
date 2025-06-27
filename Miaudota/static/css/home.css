@@ -19,18 +19,20 @@ body {
 /* Container do menu */
 #menu-container {
   position: fixed;
-  top: 20px;
-  right: 20px;
+  top: 3px;
+  right: 10px;
   z-index: 1000;
 }
 
 /* Ícone do menu */
 .hamburger {
   cursor: pointer;
-  font-size: 30px;
+  font-size: 40px;
   background-color: transparent;
-  border: none;
-  color: var(--Azul);
+  border: var(--Azul);
+  color: var(--Laranja);
+  
+  
 }
 
 /* Menu escondido */
@@ -83,6 +85,8 @@ body {
   text-align: center;
   transition: transform 0.3s;
   background-color: var(--Azul);
+  border-color: #333;
+  
 }
 
 /* Efeito de hover no card */
@@ -93,7 +97,7 @@ body {
 /* Imagem do animal com largura máxima para se ajustar ao card */
 .animal-card img {
   width: 100%;  /* A imagem ocupa toda a largura do card */
-  height: 150px;  /* Altura fixa para a imagem */
+  height: 250px;  /* Altura fixa para a imagem */
   object-fit: cover;  /* A imagem vai cobrir o container mantendo a proporção */
 }
 
@@ -123,3 +127,13 @@ body {
 .animal-card .details-button:hover {
   background-color: #0056b3;
 }
+
+#header{
+  text-align: center;
+  color: #fff;
+  background-color: var(--Azul);
+  height: 70px;
+  padding-top: 10px;
+
+}
+

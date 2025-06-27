@@ -160,7 +160,7 @@ def adicionar_animais(request):
             ong=ong,
             disponivel=True
         )
-        return redirect('lista_animais')
+        return redirect('dashboard_ong')
     
     return render(request, 'html/animais/adicionar.html')
 
