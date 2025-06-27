@@ -79,7 +79,8 @@ def registro_adotante(request):
         user.groups.add(grupo_adotante)
 
         auth_login(request, user)
-        return redirect('dashboard_adotante')
+        messages.success(request, 'Agora Você Pode Adotar')
+        return redirect('/')
 
     return render(request, 'html/login/registro_adotante.html') 
 

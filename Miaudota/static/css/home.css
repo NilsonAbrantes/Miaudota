@@ -136,3 +136,58 @@ body {
 
 }
 
+/* Estilo para a caixa de alerta */
+.alert-box {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 500px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    text-align: center;
+    font-size: 16px;
+    display: none; /* Inicialmente escondido */
+}
+
+.alert-message {
+    margin: 0;
+    padding: 10px;
+}
+
+/* Estilo para mensagens de sucesso */
+.alert-success {
+    background-color: #4CAF50;
+    color: white;
+    border: 1px solid #388E3C;
+}
+
+/* Estilo para mensagens de erro */
+.alert-danger {
+    background-color: #f44336;
+    color: white;
+    border: 1px solid #D32F2F;
+}
+
+/* Exibir o alerta com animação */
+.show-alert {
+    opacity: 1;
+    display: block;
+}
+
+/* Botão de fechamento (X) */
+.close-alert {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 18px;
+    color: white;
+}
