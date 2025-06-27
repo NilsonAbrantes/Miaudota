@@ -32,7 +32,6 @@ body {
   border: var(--Azul);
   color: var(--Laranja);
   
-  
 }
 
 /* Menu escondido */
@@ -43,7 +42,7 @@ body {
   border-radius: 5px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 10px;
-  position: absolute;
+  position: fixed;
   top: 40px;
   right: 0;
   width: 200px;
@@ -73,12 +72,12 @@ body {
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));  /* Grid responsivo, com colunas automáticas */
   gap: 15px;  /* Menor espaço entre os containers */
   padding: 20px;
-  justify-items: center;  /* Alinha os itens ao centro */
+  justify-items: center;  
 }
 
 /* Estilo dos containers de cada animal */
 .animal-card {
-  border: 1px solid #ddd;  /* Border mais sutil */
+  border: 1px solid #ddd;  
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -91,14 +90,14 @@ body {
 
 /* Efeito de hover no card */
 .animal-card:hover {
-  transform: scale(1.05);  /* Efeito de aumentar o tamanho */
+  transform: scale(1.05);  
 }
 
 /* Imagem do animal com largura máxima para se ajustar ao card */
 .animal-card img {
-  width: 100%;  /* A imagem ocupa toda a largura do card */
-  height: 250px;  /* Altura fixa para a imagem */
-  object-fit: cover;  /* A imagem vai cobrir o container mantendo a proporção */
+  width: 100%;  
+  height: 250px;  
+  object-fit: cover;  
 }
 
 /* Título e texto dentro do card */
