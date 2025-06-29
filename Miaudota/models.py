@@ -34,13 +34,12 @@ class Animal(models.Model):
         return self.nome
     
 class Adotante(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)  # Relacionamento com o usuário
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     nome = models.CharField(max_length=100)
-    cpf = models.CharField(max_length=11, unique=True)  
+    cpf = models.CharField(max_length=11, unique=True)
     telefone = models.CharField(max_length=15)
     endereco = models.TextField()
-    data_nascimento = models.DateField()
-    consentimento = models.BooleanField()
+    data_nascimento = models.DateField(null=True, blank=True)  # Permitir valor nulo ou em branco
 
     def __str__(self):
         return self.nome

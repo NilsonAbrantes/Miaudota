@@ -40,7 +40,8 @@
         <p>Espécie: {{ animal.especie }}</p>
         <p>Raça: {{ animal.raca }}</p>
         <p>Descrição: {{ animal.descricao}}</p>
-        <a href="{% url 'contato_ong' animal.id %}" class="btn btn-primary">Contato com a ONG</a>
+        <a href="{% url 'contato_ong' animal.id adotante.id %}" class="btn btn-primary">Contato com a ONG</a>
+
 
 
       </div>

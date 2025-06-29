@@ -3,6 +3,11 @@
 
 <form method="POST">
   {% csrf_token %}
-  {{ form.as_p }}
+  <p>Dados Adotante: <br>
+  Nome: {{ adotante.nome }} <br>
+  Cpf: {{ cpf_mascarado }} <br>
+  Telefone: {{ adotante.telefone }}
+  </p>
+  {{ form.as_p }}  <!-- Exibe o formulário -->
   <button type="submit">Enviar Mensagem</button>
 </form>

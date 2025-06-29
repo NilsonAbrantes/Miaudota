@@ -71,18 +71,37 @@ def registro_ong(request):
 def registro_adotante(request):
     if request.method == 'POST':
         username = request.POST['username']
-        senha = request.POST['senha']
         email = request.POST['email']
+        senha = request.POST['senha']
+        cpf = request.POST['cpf']
+        data_nascimento = request.POST['data_nascimento']  
+        telefone = request.POST['telefone']
+        endereco = request.POST['endereco']
 
+        # Criando o usuário
         user = User.objects.create_user(username=username, email=email, password=senha)
+        user.save()
+        
+        #Adicionando ao grupo de Adotante
         grupo_adotante = Group.objects.get(name='adotante')
         user.groups.add(grupo_adotante)
 
-        auth_login(request, user)
+        # Criando o objeto Adotante associado ao usuário
+        adotante = Adotante.objects.create(
+        user=user,
+        nome=username,
+        cpf=cpf,
+        data_nascimento=data_nascimento,
+        telefone=telefone,
+        endereco=endereco)
+        adotante.save()
+
+
         messages.success(request, 'Agora Você Pode Adotar')
         return redirect('/')
+    
 
-    return render(request, 'html/login/registro_adotante.html') 
+    return render(request, 'html/login/registro_adotante.html')
 
 def login_view(request):
     if request.method == 'POST':
@@ -116,8 +135,23 @@ def dashboard_ong(request):
 
 @login_required
 def dashboard_adotante(request):
-    animais = Animal.objects.filter(disponivel=True)
-    return render(request, 'html/dashboard/dashboard_adotante.html', {'animais':animais})
+    try:
+        # Obtendo o adotante associado ao usuário logado
+        adotante = Adotante.objects.get(user=request.user)
+        
+        # Recuperando os animais disponíveis (que podem ser adotados)
+        animais = Animal.objects.filter(disponivel=True)  
+        
+        # Passando o adotante e os animais para o template
+        return render(request, 'html/dashboard/dashboard_adotante.html', {'adotante': adotante, 'animais': animais})
+    
+    except Adotante.DoesNotExist:
+        # Caso o adotante não exista, cria um novo adotante
+        adotante = Adotante.objects.create(user=request.user, nome=request.user.username)
+        animais = []  # Ou um valor padrão
+
+        return render(request, 'html/dashboard/dashboard_adotante.html', {'adotante': adotante, 'animais': animais})
+
 
 def home(request):
     animais = Animal.objects.filter(disponivel=True)
@@ -201,50 +235,63 @@ def listar_animais_publicos(request):
     animais = Animal.objects.filter(disponivel=True)
     return render(request, 'html/animais/publicos.html', {'animais':animais})
 
+def mascara_cpf(cpf):
+    return f"{cpf[:3]}.***.***-{cpf[-2:]}"
+
 @login_required
 def contato_ong(request, animal_id, adotante_id):
     try:
-        # Obtendo o animal pelo ID
         animal = Animal.objects.get(id=animal_id)
         adotante = Adotante.objects.get(id=adotante_id)
-        # Verifique se o animal tem uma ONG associada
-        if not animal.ong:
-            raise PermissionDenied("Este animal não está associado a uma ONG válida.")
+        cpf_mascarado = mascara_cpf(adotante.cpf)
         
-        # Se a ONG estiver corretamente associada, você pode acessar seu e-mail
-        ong_email = animal.ong.user.email  # Acessando o e-mail da ONG
-
-        # Se o método for POST, o formulário foi enviado
         if request.method == 'POST':
             form = ContatoForm(request.POST)
             if form.is_valid():
-                nome = ...
-                email = form.cleaned_data['email']
-                mensagem = form.cleaned_data['mensagem']
+               # Acesso os dados do formulário
+                adotar_qualquer_animal = form.cleaned_data['adotar_qualquer_animal']
+                todos_concordam = form.cleaned_data['todos_concordam']
+                animal_seria_problema = form.cleaned_data['animal_seria_problema']
+                possibilidade_devolucao = form.cleaned_data['possibilidade_devolucao']
+                despesas_preparado = form.cleaned_data['despesas_preparado']
+                moradia = form.cleaned_data['moradia']
+                horas_sozinho = form.cleaned_data['horas_sozinho']
+                viagens_como_ficar = form.cleaned_data['viagens_como_ficar']
+                consciencia_castracao = form.cleaned_data['consciencia_castracao']
+                avisar_projeto = form.cleaned_data['avisar_projeto']
 
-                # Envia o e-mail para a ONG
+                # Corpo do e-mail com as respostas
+                corpo_mensagem = f"""
+                1 - Por que você quer adotar um animal? {adotar_qualquer_animal}
+                2 - Todos concordam com a adoção? {'Sim' if todos_concordam else 'Não'}
+                3 - Se a família resolver ter um bebê, o animal será um problema? {'Sim' if animal_seria_problema else 'Não'}
+                4 - Existe a possibilidade de devolução do animal? {'Sim' if possibilidade_devolucao else 'Não'}
+                5 - Você está preparado para as despesas de alimentação, higiene e veterinárias que o animal precisa ter? {'Sim' if despesas_preparado else 'Não'}
+                6 - Você mora em casa ou apartamento? Sendo casa, é murada? Sendo apê, é telado? {moradia}
+                7 - Quantas horas o animal ficará sozinho na residência? {horas_sozinho}
+                8 - Em caso de viagens, com quem ficará o animal? {viagens_como_ficar}
+                9 - Você tem consciência da importância da castração? {'Sim' if consciencia_castracao else 'Não'}
+                10 - Você concorda em avisar os membros do projeto caso aconteça algo com o animal? {'Sim' if avisar_projeto else 'Não'}
+                """
+
+                # Enviar o e-mail
                 send_mail(
                     f'Contato sobre o animal: {animal.nome}',
-                    f'Nome: {nome}\nEmail: {email}\n\nMensagem:\n{mensagem}',
-                    email,  # E-mail do remetente
-                    [ong_email],  # E-mail da ONG
+                    corpo_mensagem,
+                    adotante.email,
+                    [animal.ong.user.email],
                     fail_silently=False,
                 )
 
                 messages.success(request, 'Sua mensagem foi enviada com sucesso! A ONG entrará em contato em breve.')
-
-                # Redireciona para a página de visualização pública após envio
                 return redirect('animais_publicos')
-
         else:
-            # Se o método for GET, o formulário é renderizado vazio
             form = ContatoForm()
 
-        # Renderiza a página do formulário de contato
-        return render(request, 'html/animais/contato.html', {'form': form, 'animal': animal})
+        return render(request, 'html/animais/contato.html', {'form': form, 'animal': animal, 'adotante': adotante, 'cpf_mascarado': cpf_mascarado})
 
     except Animal.DoesNotExist:
         raise PermissionDenied("Animal não encontrado.")
-    except Exception as e:
-        print(f"Erro inesperado: {e}")
+    except Adotante.DoesNotExist:
+        raise PermissionDenied("Adotante não encontrado.")
 
