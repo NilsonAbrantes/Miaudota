@@ -1,135 +1,273 @@
-
-:root{
-  --Laranja : #f26f21;
-  --Azul: #05318f;
+/* Barra de navegação no topo */
+.navbar {
+  background-color: #FFEABA;
+  padding: 10px 0;
+  position: sticky;
+  top: 0;
+  z-index: 20;
 }
 
-body {
-  font-family: Arial, sans-serif;
-}
-
-.corFundo {
-  background-color: var(--Laranja);
-}
-
-/* Container do menu */
-#menu-container {
-  position: fixed;
-  top: 3px;
-  right: 10px;
-  z-index: 1000;
-}
-
-/* Ícone do menu */
-.hamburger {
-  cursor: pointer;
-  font-size: 40px;
-  background-color: transparent;
-  border: var(--Azul);
-  color: var(--Laranja);
-  
-}
-
-/* Menu escondido */
-.menu {
-  display: none;
-  flex-direction: column;
-  background-color: #fff;
-  border-radius: 5px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 10px;
-  position: fixed;
-  top: 40px;
-  right: 0;
-  width: 200px;
-}
-
-/* Itens do menu */
-.menu a {
-  text-decoration: none;
-  padding: 10px;
-  color: #333;
-  border-radius: 5px;
-  transition: background-color 0.3s;
-}
-
-.menu a:hover {
-  background-color: #f0f0f0;
-}
-
-/* Mostrar o menu quando ativo */
-.menu.show {
+.navbar .container {
   display: flex;
+  justify-content: space-around;
+}/* Barra de navegação no topo */
+.navbar {
+  background-color: #FFEABA; /* Cor de fundo suave e clara */
+  padding: 15px 30px; /* Mais padding para dar mais espaço e separar os itens */
+  position: sticky;
+  top: 0;
+  z-index: 20;
 }
 
-/* Container do álbum com grid */
+.navbar .container {
+  display: flex;
+  justify-content: space-between; /* Alinha logo à esquerda e itens à direita */
+  align-items: center; /* Alinha verticalmente os itens no centro */
+}
+
+.navbar-item {
+  color: #F72F7A; /* Cor rosa para os itens */
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0 15px; /* Espaçamento entre os itens */
+  transition: color 0.3s ease; /* Transição suave para hover */
+}
+
+.navbar-item:hover {
+  color: #FFB6C1; /* Cor de hover para um tom mais suave de rosa */
+}
+
+/* Adicionando o ícone da logo */
+.navbar-logo {
+  display: flex;
+  align-items: center; /* Alinha o texto e o ícone da logo */
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #F72F7A;
+}
+
+.navbar-logo img {
+  height: 40px; /* Ajuste a altura da logo */
+  margin-right: 10px; /* Espaçamento entre a logo e o texto */
+}
+
+/* Menu de navegação */
+#menu-container {
+  display: none; /* Inicialmente oculto */
+}
+
+/* Seção Hero */
+section {
+  background-color: #FFB6C1; /* Cor de fundo vibrante */
+}
+
+section .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+section h2 {
+  color: #F72F7A;
+}
+
+section p {
+  font-size: 1.2rem;
+  color: #333;
+}
+
+button {
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .navbar .container {
+    flex-direction: column; /* Organiza os itens em coluna em dispositivos menores */
+    align-items: flex-start; /* Alinha os itens à esquerda */
+  }
+
+  .navbar-item {
+    padding: 10px 0; /* Reduz o espaçamento entre os itens */
+  }
+
+  .navbar-logo {
+    margin-bottom: 10px; /* Espaçamento inferior para logo */
+  }
+
+  #menu-container {
+    display: block; /* Exibe o menu em dispositivos menores */
+  }
+
+}
+
+/* Responsividade para telas pequenas */
+@media (max-width: 480px) {
+  .album-container {
+    grid-template-columns: 1fr;
+  }
+
+  #header .titulo {
+    font-size: 2rem;
+  }
+}
+
+.navbar-item {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.navbar-item:hover {
+  color: #FFB6C1;
+}
+
+/* Estilo geral do corpo */
+body.corFundo {
+  background-color: #FFF5E1; /* Cor de fundo suave */
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Estilo do cabeçalho */
+#header {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.titulo {
+  font-size: 3rem;
+  color: #F72F7A; /* Cor de destaque no título */
+  font-weight: bold;
+}
+
+/* Menu de navegação */
+#menu-container {
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  z-index: 10;
+}
+
+
+section {
+  background-color: #FFB6C1; /* Cor de fundo vibrante */
+}
+
+section .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+section h2 {
+  color: #F72F7A;
+}
+
+section p {
+  font-size: 1.2rem;
+  color: #333;
+}
+
+button {
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+/* Cards de animais com mais destaque */
 .album-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));  /* Grid responsivo, com colunas automáticas */
-  gap: 15px;  /* Menor espaço entre os containers */
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));  /* Responsivo: ajusta a quantidade de colunas conforme o espaço disponível */
+  gap: 20px;  /* Ajuste do espaço entre os containers */
   padding: 20px;
-  justify-items: center;  
+  justify-items: center;  /* Centraliza os itens horizontalmente no grid */
+  align-items: center;  /* Centraliza os itens verticalmente no grid */
+  max-width: 1200px;  /* Limita a largura do container */
+  margin: 0 auto;  /* Centraliza o container de grid horizontalmente */
 }
 
-/* Estilo dos containers de cada animal */
 .animal-card {
-  border: 1px solid #ddd;  
-  border-radius: 8px;
-  overflow: hidden;
+  background-color: white;
+  border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  padding: 20px;
+  cursor: pointer;
   transition: transform 0.3s;
-  background-color: var(--Azul);
-  border-color: #333;
-  
+  padding: 10px;
+  width: 100%;  /* Garante que o card ocupe 100% da largura disponível */
+  max-width: 320px; /* Limita a largura dos cards */
+  height: 550px;  /* Garante uma altura fixa para os cards */
+  justify-content: space-between;
 }
 
-/* Efeito de hover no card */
 .animal-card:hover {
-  transform: scale(1.05);  
+  transform: scale(1.05);
 }
 
-/* Imagem do animal com largura máxima para se ajustar ao card */
 .animal-card img {
-  width: 100%;  
-  height: 250px;  
-  object-fit: cover;  
+  width: 100%;
+  height: 360px; /* Ajustado para manter a proporção das imagens */
+  object-fit: cover; /* Faz a imagem cobrir o espaço sem distorcer */
+  border-top-left-radius: 8px; /* Arredonda as bordas superiores da imagem */
+  border-top-right-radius: 8px;
+  margin-bottom: 20px; /* Espaçamento entre a imagem e o conteúdo */
 }
 
-/* Título e texto dentro do card */
 .animal-card h3 {
-  margin: 10px 0;
-  font-size: 1.2em;
-  color: #fff;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 10px;
 }
 
 .animal-card p {
-  margin: 0 0 10px;
-  font-size: 1em;
-  color: #fff;
+  color: #333;
 }
 
-/* Botão de detalhes */
-.animal-card .details-button {
-  padding: 8px 12px;
-  background-color: #007BFF;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 5px;
-  transition: background-color 0.3s;
+.animal-card .status {
+  color: #4CAF50;
+  font-size: 0.9rem;
+  margin-top: 10px;
 }
 
-.animal-card .details-button:hover {
-  background-color: #0056b3;
+/* Responsividade */
+@media (max-width: 768px) {
+  .album-container {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  section .container {
+    flex-direction: column;
+    text-align: center;
+  }
 }
 
-#header{
-  text-align: center;
-  color: #fff;
-  background-color: var(--Azul);
-  height: 70px;
-  padding-top: 10px;
+@media (max-width: 480px) {
+  .album-container {
+    grid-template-columns: 1fr;
+  }
 
+  #header .titulo {
+    font-size: 2rem;
+  }
 }
 
 /* Estilo para a caixa de alerta */
@@ -186,4 +324,17 @@ body {
     font-weight: bold;
     font-size: 18px;
     color: white;
+}
+
+/* Estilo das tags na descrição */
+.tag {
+  display: inline-block;
+  background-color: #FFF5E1;  
+  color: #4A2C91;  /* Cor de texto escuro */
+  font-size: 14px;
+  padding: 5px 12px;
+  margin: 5px 5px 5px 0;
+  border-radius: 20px;  /* Bordas arredondadas */
+  font-weight: bold;
+  align-self: flex-end;  /* Faz as tags se alinhem ao final do card */
 }

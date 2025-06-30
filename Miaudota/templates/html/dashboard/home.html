@@ -6,9 +6,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home</title>
+  <title>Home - MiauDota</title>
   <link rel="stylesheet" href="{% static 'css/home.css' %}">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css">
+
+  <head>
+    <link href="https://fonts.googleapis.com/css2?family=Aleo:wght@400;700&display=swap" rel="stylesheet">
+  </head>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<!-- Adicionando o link do Google Fonts para a fonte Montserrat -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+</head>
 </head>
 
 {% if messages %}
@@ -20,47 +29,87 @@
 {% endif %}
 
 <body class="corFundo">
-  <div id="menu-container">
-    <!-- Ícone de hambúrguer -->
-    <button class="hamburger" onclick="toggleMenu()">&#9776;</button>
-
-    <!-- Menu de opções -->
-    <div class="menu" id="menu">
-      <a href="/login/">Fazer Login</a>
-      <a href="/registrar/ong/">Cadastrar ONG</a>
-      <a href="/registrar/adotante/">Cadastrar Adotante</a>
-    </div>
-  </div>
-
-  <div id="container">
-    <div id="header">
-      <h1 class="titulo">Bem-vindo ao MiauDota</h1>
-    </div>
-
-    <!-- Exibir os animais em formato de álbum -->
-    <div class="album-container">
-      {% for animal in animais %}
-      <div class="animal-card">
-        <img src="{{ animal.foto.url }}" alt="Foto do animal">
-        <h3>{{ animal.nome }}</h3>
-        <p>Espécie: {{ animal.especie }}</p>
-        <p>Raça: {{ animal.raca }}</p>
-        <p>Descrição: {{ animal.descricao}}</p>
-
+  <!-- Barra de Navegação -->
+  <div class="navbar">
+    <div class="container mx-auto flex justify-between items-center">
+      <!-- Logo à esquerda -->
+      <div class="flex items-center space-x-2">
+        <img src="{% static 'logo.png' %}" class="h-10"> <!-- Substitua o caminho 'logo.png' pela sua logo -->
       </div>
-      {% empty %}
-      <p>Não há animais disponíveis no momento.</p>
-      {% endfor %}
+      <a href="/login/" class="navbar-item text-pink-600 hover:text-pink-800">Login</a>
+      <a href="/registrar/adotante/" class="navbar-item text-pink-600 hover:text-pink-800">Cadastre-se</a>
+      <a href="/registrar/ong/" class="navbar-item text-pink-600 hover:text-pink-800">Cadastrar ONG</a>
+      <a href="/contato/" class="navbar-item text-pink-600 hover:text-pink-800">Contate-nos</a>
     </div>
-
-
   </div>
+
+  <!-- Seção Hero -->
+  <section class="bg-yellow-300 text-white py-16 md:py-24">
+    <div class="container mx-auto px-4 flex flex-col md:flex-row items-center">
+      <!-- Texto à esquerda -->
+      <div class="md:w-1/2 mb-8 md:mb-0 text-left"> <!-- Removemos text-center e mantemos text-left -->
+        <h2 class="text-4xl md:text-5xl font-bold mb-4 text-pink-600" style="font-family: 'Aleo', serif; font-weight: bold; font-style: italic; font-size: 4rem;">DÊ UM LAR PARA SEU AMIGO</h2>
+        <p class="text-4xl mb-6 text-white italic" style="font-family: 'Montserrat', sans-serif;">Encontre seu companheiro perfeito para deixar seus dias mais felizes e dar muito amor!</p>
+        <div class="flex space-x-4 justify-center md:justify-start">
+          <button class="bg-pink-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-pink-700 transition">Quero adotar</button>
+          <button class="border-2 border-pink-600 text-pink-600 px-6 py-3 rounded-lg font-bold hover:bg-pink-600 hover:text-white transition">Conheça o projeto</button>
+        </div>
+      </div>
+
+
+      <!-- Imagem à direita, no limite da página e com tamanho reduzido -->
+      <div class="md:w-1/2 flex justify-end  pr-0">
+        <img src="{% static 'Cachorro-Cao-e-humano.webp' %}" alt="Família feliz com animais" class="rounded-lg shadow-xl w-full max-w-3x1">
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Exibir os animais em formato de álbum com cards maiores -->
+  <div class="album-container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+  {% for animal in animais %}
+  <div class="animal-card bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 p-0 cursor-pointer w-full">
+    <!-- Estrutura do card: imagem em cima e texto abaixo -->
+    <div class="animal-card-content flex flex-col">
+      
+      <!-- Imagem do animal no topo, ocupando toda a largura e altura da borda -->
+      <div class="animal-image w-full h-80 mb-4">
+        <img src="{{ animal.foto.url }}" alt="Foto do animal" class="rounded-t-lg w-full h-full object-cover">
+      </div>
+
+      <!-- Detalhes do animal, logo abaixo da imagem -->
+      <div class="animal-details px-4 py-4">
+        <!-- Lógica para alterar a cor do nome -->
+        <h3 class="text-lg font-bold mb-2 {% if animal.sexo == 'M' %} text-blue-600 {% else %} text-pink-600 {% endif %}">
+          {{ animal.nome }}
+        </h3>
+        <p class="text-sm text-gray-700 mb-1">Espécie: {{ animal.especie }}</p>
+        <p class="text-sm text-gray-700 mb-1">Raça: {{ animal.raca }}</p>
+
+        
+        <p class="text-sm text-gray-700 mb-2">
+            {% for tag in animal.tags %}
+              <span class="tag">{{ tag }}</span>
+            {% endfor %}
+          </p>
+
+        <!-- Status do animal -->
+        <p class="mt-2 text-sm text-green-500">{{ animal.status }}</p>
+      </div>
+    </div>
+  </div>
+  {% empty %}
+  <p>Não há animais disponíveis no momento.</p>
+  {% endfor %}
+</div>
+
+
 
   <script>
     // Função para alternar o menu
     function toggleMenu() {
       var menu = document.getElementById('menu');
-      menu.classList.toggle('show');
+      menu.classList.toggle('hidden');
     }
 
     // Função para mostrar o alerta
@@ -77,11 +126,11 @@
     // Mostrar o alerta automaticamente se houver mensagens
     window.onload = function () {
       {% if messages %}
-        showAlert();  // Chama a função para exibir o alerta
+      showAlert();  // Chama a função para exibir o alerta
       {% endif %}
     }
 
-  </script>
+    //</script>
 </body>
 
 </html>

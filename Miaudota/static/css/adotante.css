@@ -1,6 +1,9 @@
 :root {
   --Laranja: #f26f21;
   --Azul: #05318f;
+  --Rosa: #F72F7A;
+  --Branco: #FFF5E1;
+  --Amarelo: #FFB6C1;
 }
 
 body {
@@ -14,7 +17,7 @@ body {
   background-color: var(--Laranja);
 }
 
-/* Container do menu */
+/* Menu de navegação */
 #menu-container {
   position: fixed;
   top: 10px;  
@@ -66,13 +69,15 @@ body {
   gap: 15px;  /* Menor espaço entre os containers */
   padding: 40px;
   justify-items: center;
+  margin: 0 auto;
+  max-width: 1200px;
 }
 
 /* Estilo dos containers de cada animal */
 .animal-card {
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Garante que o botão fique no final */
+  justify-content: space-between; /* Garante que o botão e as tags fiquem no final */
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
@@ -95,27 +100,30 @@ body {
   width: 100%;
   height: 250px;
   object-fit: cover;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  margin-bottom: 20px;
 }
 
 /* Título e texto dentro do card */
 .animal-card h3 {
-  margin: 10px 0;
-  font-size: 1.2em;
-  color: #fff;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #FFF5E1; /* Cor de texto claro */
+  margin-top: 10px;
 }
 
 .animal-card p {
-  margin: 0 0 10px;
-  font-size: 1em;
-  color: #fff;
+  color: #FFF5E1; /* Cor de texto claro */
+  margin-bottom: 10px;
 }
 
 /* Botão de detalhes */
 .animal-card .details-button {
   margin-top: auto;  /* Garante que o botão fique no final */
   padding: 8px 12px;
-  background-color: #007BFF;
-  color: #fff;
+  background-color: #FFB6C1;  /* Cor semelhante ao rosa da home */
+  color: var(--Azul);
   text-decoration: none;
   border-radius: 5px;
   transition: background-color 0.3s;
@@ -123,23 +131,98 @@ body {
 }
 
 .animal-card .details-button:hover {
-  background-color: #0056b3;
-}
-
-#header {
-  text-align: center;
-  color: #fff;
   background-color: var(--Azul);
-  height: 70px;
-  padding-top: 20px;
+  color: #FFF5E1;
 }
 
-button {
+/* Responsividade */
+@media (max-width: 768px) {
+  .album-container {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  section .container {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .album-container {
+    grid-template-columns: 1fr;
+  }
+
+  #header .titulo {
+    font-size: 2rem;
+  }
+}
+
+/* Estilo para a caixa de alerta */
+.alert-box {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 500px;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  text-align: center;
+  font-size: 16px;
+  display: none;
+}
+
+.alert-message {
+  margin: 0;
+  padding: 10px;
+}
+
+/* Estilo para mensagens de sucesso */
+.alert-success {
   background-color: #4CAF50;
   color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
+  border: 1px solid #388E3C;
+}
+
+/* Estilo para mensagens de erro */
+.alert-danger {
+  background-color: #f44336;
+  color: white;
+  border: 1px solid #D32F2F;
+}
+
+/* Exibir o alerta com animação */
+.show-alert {
+  opacity: 1;
+  display: block;
+}
+
+/* Botão de fechamento (X) */
+.close-alert {
+  position: absolute;
+  top: 5px;
+  right: 10px;
   cursor: pointer;
-  padding-top: 10px;
+  font-weight: bold;
+  font-size: 18px;
+  color: white;
+}
+
+/* Estilo para as tags na descrição */
+.tag {
+  display: inline-block;
+  background-color: #FFF5E1;  
+  color: #4A2C91;
+  font-size: 14px;
+  padding: 5px 12px;
+  margin: 5px 5px 5px 0;
+  border-radius: 20px;  
+  font-weight: bold;
+  align-self: flex-end;  /* Faz as tags se alinhem ao final do card */
+  margin-top: auto;  /* Faz as tags se moverem para o fundo do card */
 }

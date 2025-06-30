@@ -155,6 +155,8 @@ def dashboard_adotante(request):
 
 def home(request):
     animais = Animal.objects.filter(disponivel=True)
+    for animal in animais:
+        animal.tags = animal.descricao.split(",")
     return render(request, 'html/dashboard/home.html', {'animais':animais})
 
 #somente ongs podem realizar algumas operações
