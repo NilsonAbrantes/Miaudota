@@ -51,7 +51,11 @@
         <h2 class="text-4xl md:text-5xl font-bold mb-4 text-pink-600" style="font-family: 'Aleo', serif; font-weight: bold; font-style: italic; font-size: 4rem;">DÊ UM LAR PARA SEU AMIGO</h2>
         <p class="text-4xl mb-6 text-white italic" style="font-family: 'Montserrat', sans-serif;">Encontre seu companheiro perfeito para deixar seus dias mais felizes e dar muito amor!</p>
         <div class="flex space-x-4 justify-center md:justify-start">
-          <button class="bg-pink-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-pink-700 transition">Quero adotar</button>
+          {% if user.is_authenticated %}
+          <button class="bg-pink-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-pink-700 transition" onclick="window.location.href='{% url 'dashboard_adotante' %}'">Quero adotar</button>
+          {% else %}
+          <button class="bg-pink-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-pink-700 transition" onclick="window.location.href='{% url 'login' %}'">Quero adotar</button>
+          {% endif %}
           <button class="border-2 border-pink-600 text-pink-600 px-6 py-3 rounded-lg font-bold hover:bg-pink-600 hover:text-white transition">Conheça o projeto</button>
         </div>
       </div>
@@ -59,7 +63,7 @@
 
       <!-- Imagem à direita, no limite da página e com tamanho reduzido -->
       <div class="md:w-1/2 flex justify-end  pr-0">
-        <img src="{% static 'Cachorro-Cao-e-humano.webp' %}" alt="Família feliz com animais" class="rounded-lg shadow-xl w-full max-w-3x1">
+        <img src="{% static 'renan.jpg' %}" alt="Família feliz com animais" class="rounded-lg shadow-xl w-full max-w-3x1" id="renan">
       </div>
     </div>
   </section>
@@ -67,41 +71,41 @@
 
   <!-- Exibir os animais em formato de álbum com cards maiores -->
   <div class="album-container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-  {% for animal in animais %}
-  <div class="animal-card bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 p-0 cursor-pointer w-full">
-    <!-- Estrutura do card: imagem em cima e texto abaixo -->
-    <div class="animal-card-content flex flex-col">
-      
-      <!-- Imagem do animal no topo, ocupando toda a largura e altura da borda -->
-      <div class="animal-image w-full h-80 mb-4">
-        <img src="{{ animal.foto.url }}" alt="Foto do animal" class="rounded-t-lg w-full h-full object-cover">
-      </div>
+    {% for animal in animais %}
+    <div class="animal-card bg-white border border-gray-200 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 p-0 cursor-pointer w-full">
+      <!-- Estrutura do card: imagem em cima e texto abaixo -->
+      <div class="animal-card-content flex flex-col">
 
-      <!-- Detalhes do animal, logo abaixo da imagem -->
-      <div class="animal-details px-4 py-4">
-        <!-- Lógica para alterar a cor do nome -->
-        <h3 class="text-lg font-bold mb-2 {% if animal.sexo == 'M' %} text-blue-600 {% else %} text-pink-600 {% endif %}">
-          {{ animal.nome }}
-        </h3>
-        <p class="text-sm text-gray-700 mb-1">Espécie: {{ animal.especie }}</p>
-        <p class="text-sm text-gray-700 mb-1">Raça: {{ animal.raca }}</p>
+        <!-- Imagem do animal no topo, ocupando toda a largura e altura da borda -->
+        <div class="animal-image w-full h-80 mb-4">
+          <img src="{{ animal.foto.url }}" alt="Foto do animal" class="rounded-t-lg w-full h-full object-cover">
+        </div>
 
-        
-        <p class="text-sm text-gray-700 mb-2">
+        <!-- Detalhes do animal, logo abaixo da imagem -->
+        <div class="animal-details px-4 py-4">
+          <!-- Lógica para alterar a cor do nome -->
+          <h3 class="text-lg font-bold mb-2 {% if animal.sexo == 'M' %} text-blue-600 {% else %} text-pink-600 {% endif %}">
+            {{ animal.nome }}
+          </h3>
+          <p class="text-sm text-gray-700 mb-1">Espécie: {{ animal.especie }}</p>
+          <p class="text-sm text-gray-700 mb-1">Raça: {{ animal.raca }}</p>
+
+
+          <p class="text-sm text-gray-700 mb-2">
             {% for tag in animal.tags %}
-              <span class="tag">{{ tag }}</span>
+            <span class="tag">{{ tag }}</span>
             {% endfor %}
           </p>
 
-        <!-- Status do animal -->
-        <p class="mt-2 text-sm text-green-500">{{ animal.status }}</p>
+          <!-- Status do animal -->
+          <p class="mt-2 text-sm text-green-500">{{ animal.status }}</p>
+        </div>
       </div>
     </div>
+    {% empty %}
+    <p>Não há animais disponíveis no momento.</p>
+    {% endfor %}
   </div>
-  {% empty %}
-  <p>Não há animais disponíveis no momento.</p>
-  {% endfor %}
-</div>
 
 
 
