@@ -5,47 +5,39 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
-    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - MiauDota</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard_ong.css' %}">
 </head>
 
-<body class="login">
+<body class="dashboard-bg">
+    <div id="login-form-container" class="form-container">
+        <h2 class="title">Entrar no Sistema MiauDota</h2>
+        <p class="description">Faça login para acessar o sistema e gerenciar sua ONG ou adoção.</p>
 
-    <div id="container">
-        <div id="header">
-            <h1><a href="/">Entrar no Sistema MiauDota</a></h1>
-        </div>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-row">
+                <label for="id_username">Usuário</label>
+                <input type="text" name="username" id="id_username" placeholder="Usuário" required class="form-input">
+            </div>
 
-        <div id="content">
-            <form method="POST">
-                {% csrf_token %}
-                <div class="form-row">
-                    <label for="id_username">Usuário</label>
-                    <input type="text" name="username" id="id_username" placeholder="Usuário" required>
-                </div>
+            <div class="form-row">
+                <label for="id_password">Senha</label>
+                <input type="password" name="password" id="id_password" placeholder="Senha" required class="form-input">
+            </div>
 
-                <div class="form-row">
-                    <label for="id_password">Senha</label>
-                    <input type="password" name="password" id="id_password" placeholder="Senha" required>
-                </div>
+            <div class="submit-row">
+                <input type="submit" value="Entrar" class="submit-btn">
+            </div>
+        </form>
 
-                <div class="submit-row">
-                    <input type="submit" value="Entrar">
-                </div>
-            </form>
-
-            {% if messages %}
-            <ul>
-                {% for message in messages %}
-                <li style="color: red;">{{ message }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-
-
+        <div class="signup-links">
+            <p>Não tem uma conta?</p>
+            <a href="{% url 'registro_adotante' %}" class="dashboard-link">Cadastre-se como Adotante</a>
+            <a href="{% url 'registro_ong' %}" class="dashboard-link">Cadastre-se como ONG</a>
         </div>
     </div>
-
 </body>
 
 </html>
