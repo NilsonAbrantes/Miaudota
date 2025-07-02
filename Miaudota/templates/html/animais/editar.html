@@ -1,17 +1,69 @@
-<h2>Editar Animal</h2>
-<form method="POST" enctype="multipart/form-data">
-  {% csrf_token %}
-  <input type="text" name="nome" value="{{ animal.nome }}" required><br>
-  <input type="text" name="especie" value="{{ animal.especie }}" required><br>
-  <input type="text" name="raca" value="{{ animal.raca }}" required><br>
-  <input type="number" name="idade" value="{{ animal.idade }}" required><br>
-  <select name="sexo" required>
-    <option value="M">Macho</option>
-    <option value="F">Fêmea</option>
-  </select><br>
-  <textarea name="descricao">{{ animal.descricao }}</textarea><br>
-  <input type="file" name="foto" accept="image/*"><br>
-  <label for="disponivel">Disponível para Adoção</label>
-  <input type="checkbox" name="disponivel" {% if animal.disponivel %}checked{% endif %}><br>
-  <button type="submit">Atualizar</button>
-</form>
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Animal</title>
+    <link rel="stylesheet" href="{% static 'css/editar_animal.css' %}">
+</head>
+
+<body class="cadastro">
+    <section class="bg-yellow-300 text-white py-16 md:py-24">
+        <div class="form-container">
+            <h2 class="title">Editar Animal</h2>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div>
+                    <label for="nome">Nome</label>
+                    <input type="text" name="nome" id="nome" value="{{ animal.nome }}" required>
+                </div>
+
+                <div>
+                    <label for="especie">Espécie</label>
+                    <input type="text" name="especie" id="especie" value="{{ animal.especie }}" required>
+                </div>
+
+                <div>
+                    <label for="raca">Raça</label>
+                    <input type="text" name="raca" id="raca" value="{{ animal.raca }}" required>
+                </div>
+
+                <div>
+                    <label for="idade">Idade</label>
+                    <input type="number" name="idade" id="idade" value="{{ animal.idade }}" required>
+                </div>
+
+                <div>
+                    <label for="sexo">Sexo</label>
+                    <select name="sexo" id="sexo" required>
+                        <option value="M" {% if animal.sexo == 'M' %}selected{% endif %}>Macho</option>
+                        <option value="F" {% if animal.sexo == 'F' %}selected{% endif %}>Fêmea</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="descricao">Descrição</label>
+                    <textarea name="descricao" id="descricao" required>{{ animal.descricao }}</textarea>
+                </div>
+
+                <div>
+                    <label for="foto">Foto</label>
+                    <input type="file" name="foto" id="foto" accept="image/*">
+                    <img src="{{ animal.foto.url }}" width="100" alt="Imagem Atual">
+                </div>
+
+                <div>
+                    <label for="disponivel">Disponível para Adoção</label>
+                    <input type="checkbox" name="disponivel" id="disponivel" {% if animal.disponivel %}checked{% endif %}>
+                </div>
+
+                <button type="submit">Atualizar</button>
+            </form>
+        </div>
+    </section>
+    <a href="javascript:history.back()" class="back-button">&#8592; Voltar</a>
+</body>
+
+</html>

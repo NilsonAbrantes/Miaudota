@@ -1,0 +1,125 @@
+/* Estilos para a exibição de animais */
+body.animais-bg {
+  background-color: #FFF5E1;  /* Cor de fundo suave */
+  font-family: 'Arial', sans-serif;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;  /* Centraliza horizontalmente */
+  
+}
+
+h2.title {
+  font-size: 3rem;
+  color: #F72F7A;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+ul.animal-list {
+  list-style-type: none;
+  padding: 0;
+  text-align: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Exibe 3 colunas em telas grandes */
+  gap: 80px;
+  text-align: left;
+  max-width: 1000px;  /* Garantir que os cards não excedam a largura da tela */
+}
+
+ul.animal-list li {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+ul.animal-list li:hover {
+  transform: scale(1.05);
+}
+
+ul.animal-list li img {
+  width: 100%;
+  height: 300px; /* Ajuste da altura para garantir a consistência do tamanho */
+  object-fit: cover; /* Garante que as imagens se ajustem sem distorcer */
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+ul.animal-list li a {
+  color: #F72F7A;
+  font-size: 1rem;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+ul.animal-list li a:hover {
+  color: #FFB6C1;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  ul.animal-list {
+    grid-template-columns: repeat(2, 1fr); /* Exibe 2 colunas em telas menores */
+  }
+}
+
+@media (max-width: 480px) {
+  ul.animal-list {
+    grid-template-columns: 1fr; /* Exibe 1 coluna em telas muito pequenas */
+  }
+
+  h2.title {
+    font-size: 2rem;
+  }
+}
+
+h3 {
+  text-align: center;
+  margin-bottom: 15px;
+  margin-top: 5px;
+}
+
+/* Estilo para os links de ações (Editar | Excluir) */
+.action-buttons {
+  display: flex;
+  justify-content: space-between; /* Espaço entre os itens */
+  width: 100%; /* Garante que a div ocupe toda a largura disponível */
+  gap: 10px; /* Adiciona espaço entre os links */
+  margin-top: 10px;
+}
+
+.action-buttons a {
+  color: #F72F7A;
+  font-size: 1rem;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.action-buttons a:hover {
+  color: #FFB6C1;
+}
+
+/* Estilo do botão de voltar */
+.back-button {
+  position: fixed;
+  bottom: 20px;  /* Distância da parte inferior */
+  left: 20px;    /* Distância da parte esquerda */
+  background-color: transparent;  /* Fundo transparente */
+  color: #F72F7A;
+  font-size: 2rem;  /* Tamanho da seta */
+  font-weight: bold;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;  /* Remove o sublinhado do link */
+  transition: color 0.3s ease;
+}
+
+/* Efeito de hover */
+.back-button:hover {
+  color: #f26f21;
+}

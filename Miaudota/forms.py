@@ -32,7 +32,11 @@ class ContatoForm(forms.Form):
     
     moradia = forms.CharField(widget=forms.Textarea, label='6 - Você mora em casa ou apartamento? Sendo casa, é murada? Sendo apê, é telado?')
     
-    horas_sozinho = forms.IntegerField(label='7 - Quantas horas o animal ficará sozinho na residência?', required=True)
+    horas_sozinho = forms.IntegerField(
+        label='7 - Quantas horas o animal ficará sozinho na residência?', 
+        required=True,
+        widget=forms.NumberInput(attrs={'class': 'highlight'})
+    )
     
     viagens_como_ficar = forms.CharField(widget=forms.Textarea, label='8 - Em caso de viagens, com quem ficará o animal?')
     

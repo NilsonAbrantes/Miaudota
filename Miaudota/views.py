@@ -131,7 +131,8 @@ def logout_view(request):
 
 @login_required
 def dashboard_ong(request):
-    return render(request, 'html/dashboard/dashboard_ong.html')
+    ong = Ong.objects.get(user=request.user)
+    return render(request, 'html/dashboard/dashboard_ong.html', {'ong':ong})
 
 @login_required
 def dashboard_adotante(request):

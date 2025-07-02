@@ -1,0 +1,108 @@
+/* Estilo para a página de Adicionar Animal */
+body.cadastro {
+    font-family: 'Arial', sans-serif;
+    background-color: #FFF5E1;  /* Cor de fundo suave */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h2.title {
+    font-size: 3rem;
+    color: #F72F7A;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+form {
+    max-width: 600px;
+    margin: 30px auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+form label {
+    font-size: 1rem;
+    color: #333;
+    font-weight: bold;
+}
+
+form input[type="text"],
+form input[type="number"],
+form input[type="file"],
+form select,
+form textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+    color: #333;
+}
+
+form button {
+    background-color: #F72F7A;
+    color: white;
+    padding: 12px 20px;
+    width: 100%;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #FFB6C1;
+}
+
+form .checkbox-label {
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.form-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    form {
+        padding: 20px;
+    }
+
+    form input[type="text"],
+    form input[type="number"],
+    form input[type="file"],
+    form select,
+    form textarea,
+    form button {
+        font-size: 1rem;
+    }
+}
+
+/* Estilo do botão de voltar */
+.back-button {
+    position: fixed;
+    bottom: 20px;  /* Distância da parte inferior */
+    left: 20px;    /* Distância da parte esquerda */
+    background-color: transparent;  /* Fundo transparente */
+    color: #F72F7A;
+    font-size: 2rem;  /* Tamanho da seta */
+    font-weight: bold;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;  /* Remove o sublinhado do link */
+    transition: color 0.3s ease;
+}
+
+/* Efeito de hover */
+.back-button:hover {
+    color: #f26f21;
+}

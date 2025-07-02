@@ -1,15 +1,63 @@
-<h2>Adicionar Animal</h2>
-<form method="POST" enctype="multipart/form-data">
-  {% csrf_token %}
-  <input type="text" name="nome" placeholder="Nome" required><br>
-  <input type="text" name="especie" placeholder="Espécie" required><br>
-  <input type="text" name="raca" placeholder="Raça" required><br>
-  <input type="number" name="idade" placeholder="Idade" required><br>
-  <select name="sexo" required>
-    <option value="M">Macho</option>
-    <option value="F">Fêmea</option>
-  </select><br>
-  <textarea name="descricao" placeholder="Descrição" required></textarea><br>
-  <input type="file" name="foto" accept="image/*" required><br>
-  <button type="submit">Salvar</button>
-</form>
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Adicionar Animal</title>
+    <link rel="stylesheet" href="{% static 'css/adicionar_animal.css' %}">
+</head>
+
+<body class="cadastro">
+    <section class="bg-yellow-300 text-white py-16 md:py-24">
+        <div class="form-container">
+            <h2 class="title">Adicionar Animal</h2>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div>
+                    <label for="nome">Nome</label>
+                    <input type="text" name="nome" id="nome" placeholder="Nome" required>
+                </div>
+
+                <div>
+                    <label for="especie">Espécie</label>
+                    <input type="text" name="especie" id="especie" placeholder="Espécie" required>
+                </div>
+
+                <div>
+                    <label for="raca">Raça</label>
+                    <input type="text" name="raca" id="raca" placeholder="Raça" required>
+                </div>
+
+                <div>
+                    <label for="idade">Idade</label>
+                    <input type="number" name="idade" id="idade" placeholder="Idade" required>
+                </div>
+
+                <div>
+                    <label for="sexo">Sexo</label>
+                    <select name="sexo" id="sexo" required>
+                        <option value="M">Macho</option>
+                        <option value="F">Fêmea</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="descricao">Descrição</label>
+                    <textarea name="descricao" id="descricao" placeholder="Descrição" required></textarea>
+                </div>
+
+                <div>
+                    <label for="foto">Foto</label>
+                    <input type="file" name="foto" id="foto" accept="image/*" required>
+                </div>
+
+                <button type="submit">Salvar</button>
+            </form>
+        </div>
+    </section>
+    <a href="javascript:history.back()" class="back-button">&#8592; Voltar</a>
+</body>
+
+</html>

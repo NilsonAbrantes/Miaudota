@@ -1,9 +1,29 @@
-<h2>Bem-vindo ao Dashboard da ONG</h2>
-<p>Você pode gerenciar seus animais cadastrados:</p>
+{% load static %}
 
-<ul>
-  <li><a href="{% url 'lista_animais' %}">Ver meus animais</a></li>
-  <li><a href="{% url 'adicionar_animais' %}">Adicionar novo animal</a></li>
-</ul>
+<!DOCTYPE html>
+<html lang="pt-br">
 
-<a href="{% url 'logout' %}">Sair</a>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard da ONG</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard_ong.css' %}">
+</head>
+
+<body class="dashboard-bg">
+    <section class="bg-yellow-300 text-white py-16 md:py-24">
+        <div class="form-container">
+            <h2 class="title">Gerenciamento da ONG {{ ong.nome }}</h2>
+            <p class="description">Você pode gerenciar seus animais cadastrados:</p>
+
+            <ul class="dashboard-list">
+                <li><a href="{% url 'lista_animais' %}" class="dashboard-link">Ver meus animais</a></li>
+                <li><a href="{% url 'adicionar_animais' %}" class="dashboard-link">Adicionar novo animal</a></li>
+            </ul>
+
+            <a href="{% url 'logout' %}" class="logout-button">Sair</a>
+        </div>
+    </section>
+</body>
+
+</html>
