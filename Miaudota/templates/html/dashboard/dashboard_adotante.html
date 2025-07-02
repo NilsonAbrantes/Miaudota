@@ -31,6 +31,68 @@
     </div>
   </div>
 
+  <!-- Filtros de ONG, Espécie e Gênero -->
+  <div class="filters-container">
+    <form method="GET" action="{% url 'dashboard_adotante' %}" class="d-flex justify-content-start align-items-center">
+      <div class="filter-group">
+        <label for="ong">ONG:</label>
+        <select id="ong" name="ong" class="form-select">
+          <option value="">Selecione uma ONG</option>
+          <!-- Adicione aqui as opções de ONG (substitua pelas suas opções dinâmicas) -->
+          <option value="ong1">ONG 1</option>
+          <option value="ong2">ONG 2</option>
+        </select>
+      </div>
+
+      <div class="filter-group mx-3">
+        <label for="especie">Espécie:</label>
+        <select id="especie" name="especie" class="form-select">
+          <option value="">Selecione uma Espécie</option>
+          <!-- Adicione aqui as opções de espécie (substitua pelas suas opções dinâmicas) -->
+          <option value="cao">Cão</option>
+          <option value="gato">Gato</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="genero">Gênero:</label>
+        <select id="genero" name="genero" class="form-select">
+          <option value="">Selecione um Gênero</option>
+          <option value="masculino">Masculino</option>
+          <option value="feminino">Feminino</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-primary ms-3">Filtrar</button>
+    </form>
+  </div>
+
+  <!-- Exibir os animais em formato de álbum -->
+  <div class="album-container">
+    {% for animal in animais %}
+    <div class="animal-card">
+      <img src="{{ animal.foto.url }}" alt="Foto do animal">
+      <h3>{{ animal.nome }}</h3>
+      <p>Espécie: {{ animal.especie }}</p>
+      <p>Raça: {{ animal.raca }}</p>
+      <p>Descrição: {{ animal.descricao}}</p>
+      <a href="{% url 'contato_ong' animal.id adotante.id %}" class="btn" style="background-color: #F72F7A; color: #FFFFFF;">Contato com a ONG</a>
+    </div>
+    {% empty %}
+    <p>Não há animais disponíveis no momento.</p>
+    {% endfor %}
+  </div>
+
+  <script>
+    // Função para alternar o menu
+    function toggleMenu() {
+      var menu = document.getElementById('menu');
+      menu.classList.toggle('show');
+    }
+  </script>
+</body>
+
+
     <!-- Exibir os animais em formato de álbum -->
     <div class="album-container">
       {% for animal in animais %}
@@ -40,10 +102,7 @@
         <p>Espécie: {{ animal.especie }}</p>
         <p>Raça: {{ animal.raca }}</p>
         <p>Descrição: {{ animal.descricao}}</p>
-        <a href="{% url 'contato_ong' animal.id adotante.id %}" class="btn btn-primary">Contato com a ONG</a>
-
-
-
+        <a href="{% url 'contato_ong' animal.id adotante.id %}" class="btn" style="background-color: #F72F7A; color: #FFFFFF;">Contato com a ONG</a>
       </div>
       {% empty %}
       <p>Não há animais disponíveis no momento.</p>

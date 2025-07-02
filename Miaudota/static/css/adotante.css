@@ -1,6 +1,6 @@
 :root {
-  --Laranja: #f26f21;
-  --Azul: #05318f;
+  --Laranja: #ffeaba;
+  --Rose: #f72f7a;
   --Rosa: #F72F7A;
   --Branco: #FFF5E1;
   --Amarelo: #FFB6C1;
@@ -10,6 +10,7 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
+  
 }
 
 /* Cor de fundo geral */
@@ -31,7 +32,7 @@ body {
   font-size: 40px;
   background-color: transparent;
   border: none;
-  color: var(--Azul);
+  color: var(--Rose);
 }
 
 /* Menu escondido */
@@ -52,7 +53,7 @@ body {
 .menu a {
   text-decoration: none;
   padding: 10px;
-  color: var(--Azul);
+  color: var(--Rosa);
   border-radius: 5px;
   transition: background-color 0.3s;
 }
@@ -62,12 +63,60 @@ body {
   display: flex;
 }
 
+/*/ Filtros de ONG, Espécie e Gênero */
+.filters-container {
+  margin: 20px 0;
+  padding: 0 15px;
+  display: flex;  /* Usa flexbox para centralizar */
+  justify-content: center;  /* Centraliza os filtros horizontalmente */
+  align-items: center;  /* Alinha os filtros verticalmente, se necessário */
+
+}
+
+.filter-group {
+  margin-right: 15px;
+}
+
+.filter-group label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.filter-group select {
+  width: 200px;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.filters-container form {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.filters-container .btn {
+  background-color: #f72f7a;
+  color: white;
+  border-radius: 5px;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.filters-container .btn:hover {
+  background-color: #d8285e;
+}
+
+
 /* Container do álbum com grid */
 .album-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));  /* Grid responsivo, com colunas automáticas */
-  gap: 15px;  /* Menor espaço entre os containers */
-  padding: 40px;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));  /* Grid responsivo, com colunas automáticas */
+  gap: 20px;  /* Menor espaço entre os containers */
+  padding: 10px;
+  align-items: center;
   justify-items: center;
   margin: 0 auto;
   max-width: 1200px;
@@ -75,19 +124,19 @@ body {
 
 /* Estilo dos containers de cada animal */
 .animal-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; /* Garante que o botão e as tags fiquem no final */
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  overflow: hidden;
+ background-color: white;
+  border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
+  padding: 20px;
+  cursor: pointer;
   transition: transform 0.3s;
-  background-color: var(--Azul);
-  border-color: #333;
   padding: 10px;
-  height: 500px;  /* Altura ajustada para o card */
+  padding-bottom: 60px;
+  width: 100%;  /* Garante que o card ocupe 100% da largura disponível */
+  max-width: 460px; /* Limita a largura dos cards */
+  height: 550px; 
+  position: relative;
+  justify-content: space-between;
 }
 
 /* Efeito de hover no card */
@@ -109,12 +158,12 @@ body {
 .animal-card h3 {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #FFF5E1; /* Cor de texto claro */
+  color: #000000; /* Cor de texto claro */
   margin-top: 10px;
 }
 
 .animal-card p {
-  color: #FFF5E1; /* Cor de texto claro */
+  color: #000000; /* Cor de texto claro */
   margin-bottom: 10px;
 }
 
@@ -123,17 +172,28 @@ body {
   margin-top: auto;  /* Garante que o botão fique no final */
   padding: 8px 12px;
   background-color: #FFB6C1;  /* Cor semelhante ao rosa da home */
-  color: var(--Azul);
+  color: var(--Rosa);
   text-decoration: none;
   border-radius: 5px;
-  transition: background-color 0.3s;
   text-align: center;
+  display: block; 
 }
 
-.animal-card .details-button:hover {
-  background-color: var(--Azul);
-  color: #FFF5E1;
+.animal-card .btn {
+  position: absolute; /* Posiciona o botão de forma fixa dentro do card */
+  bottom: 15px; /* Alinha o botão ao fundo do card com um espaçamento */
+  left: 50%; /* Alinha o botão horizontalmente no centro */
+  transform: translateX(-50%); /* Ajusta a posição para centralizar corretamente */
+  width: auto; /* Tamanho automático para o botão */
+  text-align: center; /* Centraliza o texto dentro do botão */
+  display: block; 
+  visibility: visible; /* Garante que o botão esteja visível */
+  z-index: 1
 }
+.animal-card h3, .animal-card p {
+  margin-bottom: 10px; /* Ajusta o espaçamento entre os elementos */
+}
+
 
 /* Responsividade */
 @media (max-width: 768px) {
