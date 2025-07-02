@@ -1,120 +1,111 @@
-/* Estilos gerais para o Login */
-body.dashboard-bg {
-  background-color: #FFF5E1;  /* Cor de fundo suave */
-  font-family: 'Arial', sans-serif;
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+/* Estilo para centralizar a página de login */
+.corFundo {
+  background-color: var(--Branco);  /* Cor de fundo suave */
+  font-family: Arial, sans-serif;
   display: flex;
   justify-content: center;  /* Centraliza horizontalmente */
-  align-items: center;      /* Centraliza verticalmente */
-  height: 100vh;            /* Garante que ocupe toda a altura da tela */
+  align-items: center;  /* Centraliza verticalmente */
+  height: 100vh;  /* Ocupa toda a altura da tela */
+  margin: 0;  /* Remove margens */
 }
 
-#login-form-container {
+.login-container {
   background-color: white;
   padding: 30px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 400px;  /* Limita a largura máxima do formulário */
-  width: 100%;  /* Faz o formulário ocupar toda a largura disponível até o limite */
-  display: flex;
-  flex-direction: column;  /* Organiza os itens em coluna */
-  justify-content: center; /* Centraliza os itens verticalmente */
-  align-items: center;     /* Centraliza os itens horizontalmente */
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;  /* Ajusta para 100% da largura do container */
+  max-width: 450px;  /* Limita a largura máxima */
 }
 
-h2.title {
-  font-size: 2rem;
-  color: #F72F7A;
+h2 {
+  font-size: 2.5rem;
+  color: var(--Rose);
   font-weight: bold;
   text-align: center;
   margin-bottom: 20px;
 }
 
-.form-row {
-  margin-bottom: 15px;
-  width: 100%;
-  text-align: center;
-}
-
-.form-row label {
-  display: block;
-  margin-bottom: 6px;
+.form-group label {
+  font-size: 1rem;
   font-weight: 600;
   color: #333;
+  display: block;
+  margin-bottom: 5px;
 }
 
-.form-input {
-  padding: 10px;
+.form-control {
   width: 100%;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 14px;
-  transition: border 0.2s;
-}
-
-.form-input:focus {
-  border-color: #F72F7A;
-  outline: none;
-}
-
-.submit-row {
-  text-align: center;
-  margin-top: 20px;
-}
-
-.submit-btn {
-  padding: 12px 20px;
-  background-color: #F72F7A;
-  border: none;
+  padding: 10px;
   border-radius: 8px;
+  border: 2px solid #ccc;
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--Rose);
+}
+
+/* Botão de login */
+.btn-pink {
+  background-color: var(--Rose);
   color: white;
-  font-size: 1.2rem;
+  padding: 12px;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  width: 100%;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  width: 100%;
-  max-width: 200px;
 }
 
-.submit-btn:hover {
-  background-color: #FFB6C1;
+.btn-pink:hover {
+  background-color: #d8285e;
 }
 
-/* Responsividade */
-@media (max-width: 768px) {
-  h2.title {
-    font-size: 1.5rem;
-  }
-
-  .form-input {
-    font-size: 1rem;
-  }
-
-  .submit-btn {
-    font-size: 1rem;
-  }
-}
-
-.signup-links {
-  display: flex;
-  justify-content: space-between;  /* Distribui os links ao longo da linha */
-  width: 100%;  /* Garante que a largura do container ocupe toda a área disponível */
-  margin-top: 30px;
-}
-
-.signup-links a {
-  color: #F72F7A;
+/* Link de cadastro */
+.text-center a {
+  color: var(--Rose);
   text-decoration: none;
   font-weight: bold;
-  padding: 8px 12px;
-  border-radius: 6px;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: color 0.3s ease;
 }
 
-.signup-links a:hover {
-  background-color: #F72F7A;
+.text-center a:hover {
+  color: #d8285e;
+}
+
+/* Alerta */
+.alert-box {
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.alert-message {
+  color: #d32f2f;
+  font-weight: bold;
+}
+
+.alert-success {
+  background-color: #388e3c;
   color: white;
 }
 
+.alert-danger {
+  background-color: #f44336;
+  color: white;
+}
+
+.alert-info {
+  background-color: #1976d2;
+  color: white;
+}
+
+/* Exibição do alerta com animação */
+.show-alert {
+  opacity: 1;
+  display: block;
+}
